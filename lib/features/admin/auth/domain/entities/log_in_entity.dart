@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:json_annotation/json_annotation.dart';
 
 part 'log_in_entity.g.dart';
@@ -23,8 +24,16 @@ class AdminLogInData {
   final int adminId;
   @JsonKey(name: 'token')
   final String token;
-
-  AdminLogInData(this.adminId, this.token);
+  @JsonKey(name: 'name')
+  final String name;
+  @JsonKey(name: 'email')
+  final String email;
+  AdminLogInData(
+    this.adminId,
+    this.token,
+    this.name,
+    this.email,
+  );
 
   factory AdminLogInData.fromJson(Map<String, dynamic> json) =>
       _$AdminLogInDataFromJson(json);

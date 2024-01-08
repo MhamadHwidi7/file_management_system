@@ -1,7 +1,8 @@
-import '../../../../../../core/api/api_consumer.dart';
-import '../../../../../../core/api/end_points.dart';
-import '../../../domain/entities/log_in_entity.dart';
-import '../../../domain/params/log_in_params.dart';
+
+import 'package:file_management_project/core/api/api_consumer.dart';
+import 'package:file_management_project/core/api/end_points.dart';
+import 'package:file_management_project/features/user/auth/log_in/domain/entities/log_in_entity.dart';
+import 'package:file_management_project/features/user/auth/log_in/domain/params/log_in_params.dart';
 import 'package:injectable/injectable.dart';
 
 abstract class LogInBaseRemoteDataSource {

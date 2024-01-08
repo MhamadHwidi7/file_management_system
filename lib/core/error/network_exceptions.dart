@@ -1,6 +1,8 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:file_management_project/core/error/error_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -53,15 +55,19 @@ abstract class NetworkExceptions with _$NetworkExceptions implements Exception {
   const factory NetworkExceptions.unexpectedError() = UnexpectedError;
 
   static NetworkExceptions handleResponse(Response? response) {
+    ErrorModel errorModel = ErrorModel.fromJson(jsonDecode(response!.data));
+    print(errorModel.message);
     int statusCode = response?.statusCode ?? 0;
+    print(statusCode);
 
     switch (statusCode) {
       case 400:
-        return const NetworkExceptions.badRequest('bad request');
+        return NetworkExceptions.badRequest(errorModel.message!);
       case 401:
-        return const NetworkExceptions.unauthorizedRequest('unauthorized');
+        return NetworkExceptions.unauthorizedRequest(errorModel.message!);
       case 403:
-        return const NetworkExceptions.forbidden();
+        return NetworkExceptions.unauthorizedRequest(errorModel.message!);
+      //   return const NetworkExceptions.forbidden();
 
       case 404:
         return const NetworkExceptions.notFound('not found');

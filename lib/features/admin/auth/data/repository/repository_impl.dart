@@ -10,40 +10,41 @@ import 'package:injectable/injectable.dart';
 
 @Singleton(as: AdminAuthBaseRepository)
 class AdminAuthRepositoryImpl implements AdminAuthBaseRepository {
-  final NetworkInfo _networkInfo;
+  // final NetworkInfo _networkInfo;
   final AdminAuthBaseRemoteDataSource _adminAuthBaseRemoteDataSource;
 
   AdminAuthRepositoryImpl(
-      this._networkInfo, this._adminAuthBaseRemoteDataSource);
+      // this._networkInfo,
+      this._adminAuthBaseRemoteDataSource);
   @override
   Future<ApiResult<AdminLogInEntity>> adminLogIn(
       AdminLogInParams adminLogInParams) async {
-    if (await _networkInfo.isConnected) {
-      try {
-        final response =
-            await _adminAuthBaseRemoteDataSource.adminLogIn(adminLogInParams);
-        return ApiResult.success(response);
-      } on Exception catch (exc) {
-        return ApiResult.error(NetworkExceptions.getException(exc));
-      }
-    } else {
-      return const ApiResult.error(NetworkExceptions.noInternetConnection());
+    // if (await _networkInfo.isConnected) {
+    try {
+      final response =
+          await _adminAuthBaseRemoteDataSource.adminLogIn(adminLogInParams);
+      return ApiResult.success(response);
+    } on Exception catch (exc) {
+      return ApiResult.error(NetworkExceptions.getException(exc));
     }
+    // } else {
+    //  return const ApiResult.error(NetworkExceptions.noInternetConnection());
+    //}
   }
 
   @override
   Future<ApiResult<void>> adminSignUp(
       AdminSignUpParams adminSignUpParams) async {
-    if (await _networkInfo.isConnected) {
-      try {
-        final response =
-            await _adminAuthBaseRemoteDataSource.adminSignUp(adminSignUpParams);
-        return ApiResult.success(response);
-      } on Exception catch (exc) {
-        return ApiResult.error(NetworkExceptions.getException(exc));
-      }
-    } else {
-      return const ApiResult.error(NetworkExceptions.noInternetConnection());
+    //if (await _networkInfo.isConnected) {
+    try {
+      final response =
+          await _adminAuthBaseRemoteDataSource.adminSignUp(adminSignUpParams);
+      return ApiResult.success(response);
+    } on Exception catch (exc) {
+      return ApiResult.error(NetworkExceptions.getException(exc));
     }
+    // } else {
+    // return const ApiResult.error(NetworkExceptions.noInternetConnection());
+    //}
   }
 }

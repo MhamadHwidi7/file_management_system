@@ -32,10 +32,12 @@ class GetAllGroupsSystemRemoteDataSource
   @override
   Future<BaseEntity<PaginationEntity<PaginatedFilesSystem>>>
       getFilesSystemPaginated(FilesParams filesSystemParams) async {
-    return await _getResultWithPagination(
-        () => _apiConsumer.get(EndPoints.fileSystem,
-            queryParameters: filesSystemParams.toJson()),
-        (json) => PaginatedFilesSystem.fromJson(json));
+    final response = await _apiConsumer.get(EndPoints.fileSystem,
+        queryParameters: filesSystemParams.toJson());
+    return BaseEntity.fromJson(
+        response,
+        (json) => PaginationEntity.fromJson(
+            json, (json) => PaginatedFilesSystem.fromJson(json)));
   }
 
   @override

@@ -23,14 +23,20 @@ class LogInCubit extends Cubit<LogInState> {
   ) : super(const LogInState.initial());
 
   Future<void> emitLogInUser(LogInParams logInParams) async {
+    emit(const LogInState.loading());
     final response = await _logInUseCase.call(logInParams);
 
-    response.fold((l) => emit(LogInState.error(l)), (r) {
-      _sharedPreferencesUtils.setToken(r.logInData.token);
+    response.fold((l) => emit(LogInState.error(l)), (r) async {
+      await _sharedPreferencesUtils.setToken(r.logInData.token);
+
+      // Wait for setToken to complete before calling getToken
+      final token = _sharedPreferencesUtils.getToken();
+
       emit(LogInState.success(r));
-      _sharedPreferencesUtils.getToken();
+
+      // Now you can use the token
       if (kDebugMode) {
-        print("Token Here : ${r.logInData.token}");
+        print("Token Here : $token");
       }
     });
   }

@@ -11,25 +11,27 @@ import 'package:injectable/injectable.dart';
 
 @Singleton(as: LogInBaseRepository)
 class LogInRepositoryImpl implements LogInBaseRepository {
-  final NetworkInfo _networkInfo;
+  //final NetworkInfo _networkInfo;
   final LogInBaseRemoteDataSource _logInBaseRemoteDataSource;
 
-  LogInRepositoryImpl(this._networkInfo, this._logInBaseRemoteDataSource);
+  LogInRepositoryImpl(
+      // this._networkInfo,
+      this._logInBaseRemoteDataSource);
 
   @override
   Future<Either<NetworkExceptions, LogInEntity>> logIn(
       LogInParams logInParams) async {
-    if (await _networkInfo.isConnected) {
-      try {
-        final response = await _logInBaseRemoteDataSource.logIn(logInParams);
-        return Right(response);
-      } on Exception catch (exc) {
-        return Left(
-          NetworkExceptions.getException(exc),
-        );
-      }
-    } else {
-      return const Left(NetworkExceptions.noInternetConnection());
+    // if (await _networkInfo.isConnected) {
+    try {
+      final response = await _logInBaseRemoteDataSource.logIn(logInParams);
+      return Right(response);
+    } on Exception catch (exc) {
+      return Left(
+        NetworkExceptions.getException(exc),
+      );
     }
+    //  } else {
+    //  return const Left(NetworkExceptions.noInternetConnection());
+    // }
   }
 }

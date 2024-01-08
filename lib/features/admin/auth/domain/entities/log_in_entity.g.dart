@@ -22,10 +22,14 @@ AdminLogInData _$AdminLogInDataFromJson(Map<String, dynamic> json) =>
     AdminLogInData(
       json['id'] as int,
       json['token'] as String,
+      json['name'] as String,
+      json['email'] as String,
     );
 
 Map<String, dynamic> _$AdminLogInDataToJson(AdminLogInData instance) =>
     <String, dynamic>{
       'id': instance.adminId,
       'token': instance.token,
+      'name': instance.name,
+      'email': instance.email,
     };

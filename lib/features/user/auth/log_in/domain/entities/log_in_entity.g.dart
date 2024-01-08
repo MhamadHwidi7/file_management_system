@@ -20,9 +20,13 @@ Map<String, dynamic> _$LogInEntityToJson(LogInEntity instance) =>
 LogInData _$LogInDataFromJson(Map<String, dynamic> json) => LogInData(
       json['id'] as int,
       json['token'] as String,
+      json['name'] as String,
+      json['email'] as String,
     );
 
 Map<String, dynamic> _$LogInDataToJson(LogInData instance) => <String, dynamic>{
       'id': instance.userId,
       'token': instance.token,
+      'name': instance.name,
+      'email': instance.email,
     };

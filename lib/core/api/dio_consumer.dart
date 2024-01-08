@@ -12,11 +12,27 @@ import 'package:file_management_project/core/resources/strings_constants.dart';
 import 'package:file_management_project/core/utils/shared_preferences_utils.dart';
 import 'package:file_management_project/injection.dart';
 
+@singleton
+class ErrorInterceptor extends Interceptor {
+  @override
+  void onResponse(Response response, ResponseInterceptorHandler handler) {
+    final status = response.statusCode;
+    final isValid = status != null && status >= 200 && status < 300;
+    if (!isValid) {
+      throw DioException.badResponse(
+        statusCode: status!,
+        requestOptions: response.requestOptions,
+        response: response,
+      );
+    }
+    super.onResponse(response, handler);
+  }
+}
+
 @Singleton(as: ApiConsumer)
 class DioConsumer implements ApiConsumer {
   DioConsumer(
     this._client,
-    this.sharedPreferencesUtils,
   ) {
     _client.options
       ..sendTimeout = const Duration(seconds: 10)
@@ -26,19 +42,19 @@ class DioConsumer implements ApiConsumer {
       ..responseType = ResponseType.plain
       ..followRedirects = true;
     if (kDebugMode) {
-      _client.interceptors.add(getIt<LoggingInterceptor>());
+      _client.interceptors
+          .addAll([getIt<LoggingInterceptor>(), getIt<ErrorInterceptor>()]);
     }
   }
   final Dio _client;
   late Map<String, String> _headers;
-  final SharedPreferencesUtils sharedPreferencesUtils;
 
-  void setHeaders() {
+  void setHeaders() async {
     _headers = {
       StringsConstants.accept: StringsConstants.applicationJson,
       StringsConstants.contentType: StringsConstants.applicationJson,
       StringsConstants.authorization: StringsConstants.bearer +
-          "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2FkbWluL2xvZ2luIiwiaWF0IjoxNzAyMDY1NDc3LCJleHAiOjE3MDIxNTE4NzcsIm5iZiI6MTcwMjA2NTQ3NywianRpIjoid1pWZ3NUOVl0dkxTaTFGdiIsInN1YiI6IjEiLCJwcnYiOiJkZjg4M2RiOTdiZDA1ZWY4ZmY4NTA4MmQ2ODZjNDVlODMyZTU5M2E5In0.DaOWXYpBvWkS3ipuhsIsYx9-LjEVdJaPEYXtAkOM7dw",
+          SharedPreferencesUtils().getToken().toString()
     };
   }
 
@@ -57,10 +73,14 @@ class DioConsumer implements ApiConsumer {
         cancelToken: cancelToken,
         options: Options(
           headers: _headers,
+          validateStatus: (int? status) {
+            return status != null;
+          },
         ),
       );
       return _handleResponseAsJson(response);
     } catch (error) {
+      print("ssssssssssssssssssssssssssssssssssssssssss$error");
       rethrow;
     }
   }
@@ -71,6 +91,7 @@ class DioConsumer implements ApiConsumer {
     dynamic body,
     String? token,
     FormData? formData,
+    ResponseType? responseType,
     Map<String, dynamic>? queryParameters,
   }) async {
     setHeaders();
@@ -81,8 +102,12 @@ class DioConsumer implements ApiConsumer {
         queryParameters: queryParameters,
         options: Options(
           headers: _headers,
+          validateStatus: (int? status) {
+            return status != null;
+          },
           contentType:
               formData == null ? StringsConstants.jsonContentType : null,
+          responseType: responseType,
         ),
         data: formData ?? body,
       );

@@ -11,19 +11,21 @@ part 'sign_up_cubit.freezed.dart';
 part 'sign_up_state.dart';
 
 @injectable
-class SignUpCubit extends Cubit<SignUpState> {
+class SignUpAdminCubit extends Cubit<SignUpAdminState> {
   final AdminSignUpUseCase _adminSignUpUseCase;
-  SignUpCubit(
+  SignUpAdminCubit(
     this._adminSignUpUseCase,
-  ) : super(const SignUpState.initial());
+  ) : super(const SignUpAdminState.initial());
 
   Future<void> emitRegisterAdmin(AdminSignUpParams adminSignUpParams) async {
+    emit(const SignUpAdminState.loading());
     final response = await _adminSignUpUseCase.call(adminSignUpParams);
     response.when(
       success: (_) {
-        emit(const SignUpState.success());
+        emit(const SignUpAdminState.success());
       },
-      error: (networkExceptions) => emit(SignUpState.error(networkExceptions)),
+      error: (networkExceptions) =>
+          emit(SignUpAdminState.error(networkExceptions)),
     );
   }
 }

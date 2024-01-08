@@ -10,9 +10,13 @@ import 'package:file_management_project/core/error/network_exceptions.dart';
 import 'package:file_management_project/features/admin/files/domain/entities/system_group.dart';
 import 'package:file_management_project/features/admin/files/domain/use_cases/get_system_groups_use_case.dart';
 import 'package:injectable/injectable.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 part 'system_groups_cubit.freezed.dart';
 part 'system_groups_state.dart';
+
+const initialPage = 1;
+const limit = 30;
 
 @injectable
 class SystemGroupsCubit
@@ -21,28 +25,30 @@ class SystemGroupsCubit
   SystemGroupsCubit(
     this._getSystemGroupsUseCase,
   ) : super(const SystemGroupsState.loading());
-  int currentPage = 1;
-  int? lastPage;
-  List<PaginatedSystemGroup?> _groups = [];
+  int currentPage = initialPage;
+  bool canLoadMoreData = true;
 
   Future<void> emitGetSystemGroups({
     bool loadMore = false,
   }) async {
-    if (loadMore) {
-      if (lastPage != null && currentPage > lastPage!) return;
-      currentPage++;
-    } else {
-      currentPage = 1;
-      emit(const SystemGroupsState.loading());
+    if (!canLoadMoreData) {
+      return;
     }
-
-    var response =
-        await _getSystemGroupsUseCase(SystemGroupsParams(page: currentPage));
+    SystemGroupsParams params = SystemGroupsParams(page: currentPage);
+    var response = await _getSystemGroupsUseCase.call(params);
     response.when(
-      success: (BaseEntity<PaginationEntity<PaginatedSystemGroup>> model) {
-        lastPage = model.data.lastPage;
-        _addIncomingDataToClassMemberData(loadMore, model);
-        emit(SystemGroupsState.success(_groups, currentPage));
+      success: (data) {
+        canLoadMoreData = data.data.lastPage != null &&
+            data.data.currentPage! < data.data.lastPage!;
+        currentPage++;
+        emit(SystemGroupsState.success(
+            data: state.maybeWhen(
+                orElse: () {
+                  print("Using orElse");
+                  return [...data.data.data];
+                },
+                success: (sys, canLoadMore) => [...sys, ...data.data.data]),
+            canLoadMore: canLoadMoreData));
       },
       error: (NetworkExceptions exception) {
         if (kDebugMode) {
@@ -53,12 +59,11 @@ class SystemGroupsCubit
     );
   }
 
-  void _addIncomingDataToClassMemberData(bool loadMore,
-      BaseEntity<PaginationEntity<PaginatedSystemGroup?>> model) {
-    if (loadMore) {
-      _groups.addAll(model.data.data);
-    } else {
-      _groups = model.data.data;
-    }
+  final RefreshController refreshController = RefreshController();
+
+  @override
+  Future<void> close() {
+    refreshController.dispose();
+    return super.close();
   }
 }

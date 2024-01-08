@@ -15,7 +15,7 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$SignUpState {
+mixin _$SignUpAdminState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
@@ -69,16 +69,16 @@ mixin _$SignUpState {
 }
 
 /// @nodoc
-abstract class $SignUpStateCopyWith<$Res> {
-  factory $SignUpStateCopyWith(
-          SignUpState value, $Res Function(SignUpState) then) =
-      _$SignUpStateCopyWithImpl<$Res, SignUpState>;
+abstract class $SignUpAdminStateCopyWith<$Res> {
+  factory $SignUpAdminStateCopyWith(
+          SignUpAdminState value, $Res Function(SignUpAdminState) then) =
+      _$SignUpAdminStateCopyWithImpl<$Res, SignUpAdminState>;
 }
 
 /// @nodoc
-class _$SignUpStateCopyWithImpl<$Res, $Val extends SignUpState>
-    implements $SignUpStateCopyWith<$Res> {
-  _$SignUpStateCopyWithImpl(this._value, this._then);
+class _$SignUpAdminStateCopyWithImpl<$Res, $Val extends SignUpAdminState>
+    implements $SignUpAdminStateCopyWith<$Res> {
+  _$SignUpAdminStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -95,7 +95,7 @@ abstract class _$$InitialImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$InitialImplCopyWithImpl<$Res>
-    extends _$SignUpStateCopyWithImpl<$Res, _$InitialImpl>
+    extends _$SignUpAdminStateCopyWithImpl<$Res, _$InitialImpl>
     implements _$$InitialImplCopyWith<$Res> {
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
@@ -109,7 +109,7 @@ class _$InitialImpl implements _Initial {
 
   @override
   String toString() {
-    return 'SignUpState.initial()';
+    return 'SignUpAdminState.initial()';
   }
 
   @override
@@ -196,7 +196,7 @@ class _$InitialImpl implements _Initial {
   }
 }
 
-abstract class _Initial implements SignUpState {
+abstract class _Initial implements SignUpAdminState {
   const factory _Initial() = _$InitialImpl;
 }
 
@@ -209,7 +209,7 @@ abstract class _$$LoadingImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$LoadingImplCopyWithImpl<$Res>
-    extends _$SignUpStateCopyWithImpl<$Res, _$LoadingImpl>
+    extends _$SignUpAdminStateCopyWithImpl<$Res, _$LoadingImpl>
     implements _$$LoadingImplCopyWith<$Res> {
   __$$LoadingImplCopyWithImpl(
       _$LoadingImpl _value, $Res Function(_$LoadingImpl) _then)
@@ -223,7 +223,7 @@ class _$LoadingImpl implements _Loading {
 
   @override
   String toString() {
-    return 'SignUpState.loading()';
+    return 'SignUpAdminState.loading()';
   }
 
   @override
@@ -310,7 +310,7 @@ class _$LoadingImpl implements _Loading {
   }
 }
 
-abstract class _Loading implements SignUpState {
+abstract class _Loading implements SignUpAdminState {
   const factory _Loading() = _$LoadingImpl;
 }
 
@@ -323,7 +323,7 @@ abstract class _$$SuccessImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$SuccessImplCopyWithImpl<$Res>
-    extends _$SignUpStateCopyWithImpl<$Res, _$SuccessImpl>
+    extends _$SignUpAdminStateCopyWithImpl<$Res, _$SuccessImpl>
     implements _$$SuccessImplCopyWith<$Res> {
   __$$SuccessImplCopyWithImpl(
       _$SuccessImpl _value, $Res Function(_$SuccessImpl) _then)
@@ -337,7 +337,7 @@ class _$SuccessImpl implements _Success {
 
   @override
   String toString() {
-    return 'SignUpState.success()';
+    return 'SignUpAdminState.success()';
   }
 
   @override
@@ -424,7 +424,7 @@ class _$SuccessImpl implements _Success {
   }
 }
 
-abstract class _Success implements SignUpState {
+abstract class _Success implements SignUpAdminState {
   const factory _Success() = _$SuccessImpl;
 }
 
@@ -441,7 +441,7 @@ abstract class _$$ErrorImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$ErrorImplCopyWithImpl<$Res>
-    extends _$SignUpStateCopyWithImpl<$Res, _$ErrorImpl>
+    extends _$SignUpAdminStateCopyWithImpl<$Res, _$ErrorImpl>
     implements _$$ErrorImplCopyWith<$Res> {
   __$$ErrorImplCopyWithImpl(
       _$ErrorImpl _value, $Res Function(_$ErrorImpl) _then)
@@ -479,7 +479,7 @@ class _$ErrorImpl implements _Error {
 
   @override
   String toString() {
-    return 'SignUpState.error(networkExceptions: $networkExceptions)';
+    return 'SignUpAdminState.error(networkExceptions: $networkExceptions)';
   }
 
   @override
@@ -575,7 +575,7 @@ class _$ErrorImpl implements _Error {
   }
 }
 
-abstract class _Error implements SignUpState {
+abstract class _Error implements SignUpAdminState {
   const factory _Error(final NetworkExceptions networkExceptions) = _$ErrorImpl;
 
   NetworkExceptions get networkExceptions;

@@ -10,25 +10,27 @@ import 'package:injectable/injectable.dart';
 
 @Singleton(as: SignUpBaseRepository)
 class SignUpRepositoryImpl implements SignUpBaseRepository {
-  final NetworkInfo _networkInfo;
+  //final NetworkInfo _networkInfo;
   final SignUpBaseRemoteDataSource _signUpBaseRemoteDataSource;
 
-  SignUpRepositoryImpl(this._networkInfo, this._signUpBaseRemoteDataSource);
+  SignUpRepositoryImpl(
+      //this._networkInfo,
+      this._signUpBaseRemoteDataSource);
 
   @override
   Future<Either<NetworkExceptions, SignUpEntity>> signUp(
       SignUpParams signUpParams) async {
-    if (await _networkInfo.isConnected) {
-      try {
-        final response = await _signUpBaseRemoteDataSource.signUp(signUpParams);
-        return Right(response);
-      } on Exception catch (exc) {
-        return Left(
-          NetworkExceptions.getException(exc),
-        );
-      }
-    } else {
-      return const Left(NetworkExceptions.noInternetConnection());
+    //  if (await _networkInfo.isConnected) {
+    try {
+      final response = await _signUpBaseRemoteDataSource.signUp(signUpParams);
+      return Right(response);
+    } on Exception catch (exc) {
+      return Left(
+        NetworkExceptions.getException(exc),
+      );
     }
+    /*} else {
+      return const Left(NetworkExceptions.noInternetConnection());
+    }*/
   }
 }

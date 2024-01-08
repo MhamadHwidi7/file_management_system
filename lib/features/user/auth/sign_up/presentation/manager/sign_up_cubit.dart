@@ -18,6 +18,7 @@ class SignUpCubit extends Cubit<SignUpState> {
   ) : super(const SignUpState.initial());
 
   Future<void> emitSignUpUser(SignUpParams signUpParams) async {
+    emit(const SignUpState.loading());
     final response = await _signUpUseCase.call(signUpParams);
 
     response.fold((l) => emit(SignUpState.error(l)), (r) {

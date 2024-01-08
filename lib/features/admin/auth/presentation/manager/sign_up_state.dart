@@ -1,9 +1,10 @@
 part of 'sign_up_cubit.dart';
 
 @freezed
-class SignUpState with _$SignUpState {
-  const factory SignUpState.initial() = _Initial;
-  const factory SignUpState.loading() = _Loading;
-  const factory SignUpState.success() = _Success;
-  const factory SignUpState.error(NetworkExceptions networkExceptions) = _Error;
+class SignUpAdminState with _$SignUpAdminState {
+  const factory SignUpAdminState.initial() = _Initial;
+  const factory SignUpAdminState.loading() = _Loading;
+  const factory SignUpAdminState.success() = _Success;
+  const factory SignUpAdminState.error(NetworkExceptions networkExceptions) =
+      _Error;
 }

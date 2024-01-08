@@ -18,82 +18,86 @@ import 'package:injectable/injectable.dart';
 
 @Singleton(as: AdminSystemBaseRepository)
 class AdminSystemRepositoryImpl implements AdminSystemBaseRepository {
-  final NetworkInfo _networkInfo;
+  // final NetworkInfo _networkInfo;
   final GetAllFilesSystemBaseRemoteDataSource
       _getAllFilesSystemBaseRemoteDataSource;
 
   AdminSystemRepositoryImpl(
-      this._networkInfo, this._getAllFilesSystemBaseRemoteDataSource);
+      //this._networkInfo,
+      this._getAllFilesSystemBaseRemoteDataSource);
   @override
   Future<ApiResult<BaseEntity<PaginationEntity<PaginatedFilesSystem>>>>
       getFilesSystemPaginated(FilesParams filesSystemParams) async {
-    if (await _networkInfo.isConnected) {
-      try {
-        final response = await _getAllFilesSystemBaseRemoteDataSource
-            .getFilesSystemPaginated(filesSystemParams);
-        return ApiResult.success(response);
-      } on Exception catch (ex) {
-        if (kDebugMode) {
-          print("error$ex");
-        }
-        return ApiResult.error(NetworkExceptions.getException(ex));
+    // if (await _networkInfo.isConnected) {
+    try {
+      final response = await _getAllFilesSystemBaseRemoteDataSource
+          .getFilesSystemPaginated(filesSystemParams);
+      return ApiResult.success(response);
+    } catch (ex) {
+      if (kDebugMode) {
+        print("error    $ex");
       }
-    } else {
-      return const ApiResult.error(NetworkExceptions.noInternetConnection());
+      print('qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqssssqqqqqqqqqqqq');
+
+      return ApiResult.error(NetworkExceptions.getException(ex));
     }
+    //} else {
+    // return const ApiResult.error(NetworkExceptions.noInternetConnection());
+    //}
   }
 
   @override
   Future<ApiResult<BaseEntity<PaginationEntity<PaginatedFilesGroup>>>>
       getFilesGroupPaginated(FilesGroupParams filesGroupParams) async {
-    if (await _networkInfo.isConnected) {
-      try {
-        final response = await _getAllFilesSystemBaseRemoteDataSource
-            .getFilesGroupPaginated(filesGroupParams);
-        return ApiResult.success(response);
-      } on Exception catch (ex) {
-        if (kDebugMode) {
-          print("error$ex");
-        }
-        return ApiResult.error(NetworkExceptions.getException(ex));
+    //if (await _networkInfo.isConnected) {
+    try {
+      final response = await _getAllFilesSystemBaseRemoteDataSource
+          .getFilesGroupPaginated(filesGroupParams);
+      return ApiResult.success(response);
+    } on Exception catch (ex) {
+      if (kDebugMode) {
+        print("error$ex");
       }
-    } else {
-      return const ApiResult.error(NetworkExceptions.noInternetConnection());
+      print('qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq');
+      return ApiResult.error(NetworkExceptions.getException(ex));
     }
+    /*  } else {
+      return const ApiResult.error(NetworkExceptions.noInternetConnection());
+    }*/
   }
 
   @override
   Future<ApiResult<BaseEntity<PaginationEntity<PaginatedSystemGroup>>>>
       getSystemGroupsPaginated(SystemGroupsParams systemGroupsParams) async {
-    if (await _networkInfo.isConnected) {
-      try {
-        final response = await _getAllFilesSystemBaseRemoteDataSource
-            .getSystemGroupsPaginated(systemGroupsParams);
-        return ApiResult.success(response);
-      } on Exception catch (ex) {
-        if (kDebugMode) {
-          print("error$ex");
-        }
-        return ApiResult.error(NetworkExceptions.getException(ex));
+    //if (await _networkInfo.isConnected) {
+    try {
+      final response = await _getAllFilesSystemBaseRemoteDataSource
+          .getSystemGroupsPaginated(systemGroupsParams);
+      return ApiResult.success(response);
+    } on Exception catch (ex) {
+      if (kDebugMode) {
+        print("error$ex");
       }
-    } else {
-      return const ApiResult.error(NetworkExceptions.noInternetConnection());
+      return ApiResult.error(NetworkExceptions.getException(ex));
     }
+    /* } else {
+      return const ApiResult.error(NetworkExceptions.noInternetConnection());
+    }*/
   }
 
   @override
   Future<Either<NetworkExceptions, void>> changeFile(
       ChangeFileNumParams changeFileNumParams) async {
-    if (await _networkInfo.isConnected) {
-      try {
-        final response = await _getAllFilesSystemBaseRemoteDataSource
-            .changeFileNumber(changeFileNumParams);
-        return Right(response);
-      } on Exception catch (exc) {
-        return Left(NetworkExceptions.getException(exc));
-      }
-    } else {
-      return const Left(NetworkExceptions.noInternetConnection());
+    // if (await _networkInfo.isConnected) {
+    try {
+      final response = await _getAllFilesSystemBaseRemoteDataSource
+          .changeFileNumber(changeFileNumParams);
+      return Right(response);
+    } on Exception catch (exc) {
+      return Left(NetworkExceptions.getException(exc));
     }
+    /* } else {
+      return const Left(NetworkExceptions.noInternetConnection());
+    }*/
   }
 }

@@ -14,26 +14,28 @@ part 'log_in_cubit.freezed.dart';
 part 'log_in_state.dart';
 
 @injectable
-class LogInCubit extends Cubit<LogInState> {
+class LogInAdminCubit extends Cubit<LogInAdminState> {
   final AdminLogInUseCase _adminLogInUseCase;
   final SharedPreferencesUtils _sharedPreferencesUtils;
-  LogInCubit(
+  LogInAdminCubit(
     this._adminLogInUseCase,
     this._sharedPreferencesUtils,
-  ) : super(const LogInState.initial());
+  ) : super(const LogInAdminState.initial());
 
   Future<void> emitLogInAdmin(AdminLogInParams adminLogInParams) async {
+    emit(const LogInAdminState.loading());
     final response = await _adminLogInUseCase.call(adminLogInParams);
     response.when(
       success: (data) {
         _sharedPreferencesUtils.setToken(data.adminLogInData.token);
-        emit(LogInState.success(data));
+        emit(LogInAdminState.success(data));
         _sharedPreferencesUtils.getToken();
         if (kDebugMode) {
           print("Token Here : ${data.adminLogInData.token}");
         }
       },
-      error: (networkExceptions) => emit(LogInState.error(networkExceptions)),
+      error: (networkExceptions) =>
+          emit(LogInAdminState.error(networkExceptions)),
     );
   }
 }

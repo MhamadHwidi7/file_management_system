@@ -15,7 +15,7 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$LogInState {
+mixin _$LogInAdminState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
@@ -69,16 +69,16 @@ mixin _$LogInState {
 }
 
 /// @nodoc
-abstract class $LogInStateCopyWith<$Res> {
-  factory $LogInStateCopyWith(
-          LogInState value, $Res Function(LogInState) then) =
-      _$LogInStateCopyWithImpl<$Res, LogInState>;
+abstract class $LogInAdminStateCopyWith<$Res> {
+  factory $LogInAdminStateCopyWith(
+          LogInAdminState value, $Res Function(LogInAdminState) then) =
+      _$LogInAdminStateCopyWithImpl<$Res, LogInAdminState>;
 }
 
 /// @nodoc
-class _$LogInStateCopyWithImpl<$Res, $Val extends LogInState>
-    implements $LogInStateCopyWith<$Res> {
-  _$LogInStateCopyWithImpl(this._value, this._then);
+class _$LogInAdminStateCopyWithImpl<$Res, $Val extends LogInAdminState>
+    implements $LogInAdminStateCopyWith<$Res> {
+  _$LogInAdminStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -95,7 +95,7 @@ abstract class _$$InitialImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$InitialImplCopyWithImpl<$Res>
-    extends _$LogInStateCopyWithImpl<$Res, _$InitialImpl>
+    extends _$LogInAdminStateCopyWithImpl<$Res, _$InitialImpl>
     implements _$$InitialImplCopyWith<$Res> {
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
@@ -109,13 +109,13 @@ class _$InitialImpl with DiagnosticableTreeMixin implements _Initial {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'LogInState.initial()';
+    return 'LogInAdminState.initial()';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty('type', 'LogInState.initial'));
+    properties.add(DiagnosticsProperty('type', 'LogInAdminState.initial'));
   }
 
   @override
@@ -202,7 +202,7 @@ class _$InitialImpl with DiagnosticableTreeMixin implements _Initial {
   }
 }
 
-abstract class _Initial implements LogInState {
+abstract class _Initial implements LogInAdminState {
   const factory _Initial() = _$InitialImpl;
 }
 
@@ -215,7 +215,7 @@ abstract class _$$LoadingImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$LoadingImplCopyWithImpl<$Res>
-    extends _$LogInStateCopyWithImpl<$Res, _$LoadingImpl>
+    extends _$LogInAdminStateCopyWithImpl<$Res, _$LoadingImpl>
     implements _$$LoadingImplCopyWith<$Res> {
   __$$LoadingImplCopyWithImpl(
       _$LoadingImpl _value, $Res Function(_$LoadingImpl) _then)
@@ -229,13 +229,13 @@ class _$LoadingImpl with DiagnosticableTreeMixin implements _Loading {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'LogInState.loading()';
+    return 'LogInAdminState.loading()';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty('type', 'LogInState.loading'));
+    properties.add(DiagnosticsProperty('type', 'LogInAdminState.loading'));
   }
 
   @override
@@ -322,7 +322,7 @@ class _$LoadingImpl with DiagnosticableTreeMixin implements _Loading {
   }
 }
 
-abstract class _Loading implements LogInState {
+abstract class _Loading implements LogInAdminState {
   const factory _Loading() = _$LoadingImpl;
 }
 
@@ -337,7 +337,7 @@ abstract class _$$SuccessImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$SuccessImplCopyWithImpl<$Res>
-    extends _$LogInStateCopyWithImpl<$Res, _$SuccessImpl>
+    extends _$LogInAdminStateCopyWithImpl<$Res, _$SuccessImpl>
     implements _$$SuccessImplCopyWith<$Res> {
   __$$SuccessImplCopyWithImpl(
       _$SuccessImpl _value, $Res Function(_$SuccessImpl) _then)
@@ -367,14 +367,14 @@ class _$SuccessImpl with DiagnosticableTreeMixin implements _Success {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'LogInState.success(adminLogInEntity: $adminLogInEntity)';
+    return 'LogInAdminState.success(adminLogInEntity: $adminLogInEntity)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty('type', 'LogInState.success'))
+      ..add(DiagnosticsProperty('type', 'LogInAdminState.success'))
       ..add(DiagnosticsProperty('adminLogInEntity', adminLogInEntity));
   }
 
@@ -471,7 +471,7 @@ class _$SuccessImpl with DiagnosticableTreeMixin implements _Success {
   }
 }
 
-abstract class _Success implements LogInState {
+abstract class _Success implements LogInAdminState {
   const factory _Success(final AdminLogInEntity adminLogInEntity) =
       _$SuccessImpl;
 
@@ -494,7 +494,7 @@ abstract class _$$ErrorImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$ErrorImplCopyWithImpl<$Res>
-    extends _$LogInStateCopyWithImpl<$Res, _$ErrorImpl>
+    extends _$LogInAdminStateCopyWithImpl<$Res, _$ErrorImpl>
     implements _$$ErrorImplCopyWith<$Res> {
   __$$ErrorImplCopyWithImpl(
       _$ErrorImpl _value, $Res Function(_$ErrorImpl) _then)
@@ -532,14 +532,14 @@ class _$ErrorImpl with DiagnosticableTreeMixin implements _Error {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'LogInState.error(networkExceptions: $networkExceptions)';
+    return 'LogInAdminState.error(networkExceptions: $networkExceptions)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty('type', 'LogInState.error'))
+      ..add(DiagnosticsProperty('type', 'LogInAdminState.error'))
       ..add(DiagnosticsProperty('networkExceptions', networkExceptions));
   }
 
@@ -636,7 +636,7 @@ class _$ErrorImpl with DiagnosticableTreeMixin implements _Error {
   }
 }
 
-abstract class _Error implements LogInState {
+abstract class _Error implements LogInAdminState {
   const factory _Error(final NetworkExceptions networkExceptions) = _$ErrorImpl;
 
   NetworkExceptions get networkExceptions;

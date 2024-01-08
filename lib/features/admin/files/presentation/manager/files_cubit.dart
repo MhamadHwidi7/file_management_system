@@ -13,19 +13,19 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:file_management_project/core/error/network_exceptions.dart';
 import 'package:file_management_project/features/admin/files/domain/use_cases/get_files_system_use_case.dart';
 import 'package:injectable/injectable.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 part 'files_cubit.freezed.dart';
 part 'files_states.dart';
+
+const initialPage = 1;
 
 @injectable
 class GetAllFilesSystemCubit extends Cubit<FileState> {
   final GetFilesSystemUseCase _getAllFilesSystemUseCase;
   final GetFilesGroupUseCase _getFilesGroupUseCase;
-  int currentPage = 1;
-  int? lastPage;
-  List<PaginatedFilesSystem?> _files = [];
-  List<PaginatedFilesGroup?> _filesGroup = [];
-
+  int currentPage = initialPage;
+  bool canLoadMoreData = true;
   GetAllFilesSystemCubit(
     this._getAllFilesSystemUseCase,
     this._getFilesGroupUseCase,
@@ -34,26 +34,34 @@ class GetAllFilesSystemCubit extends Cubit<FileState> {
   Future<void> emitGetAllFilesSystem({
     bool loadMore = false,
   }) async {
-    if (loadMore) {
-      if (lastPage != null && currentPage > lastPage!) return;
-      currentPage++;
-    } else {
-      currentPage = 1;
-      emit(const FileState.loading());
+    if (!canLoadMoreData) {
+      return;
     }
+    FilesParams filesParams = FilesParams(page: currentPage);
 
-    var response =
-        await _getAllFilesSystemUseCase(FilesParams(page: currentPage));
+    var response = await _getAllFilesSystemUseCase(filesParams);
     response.when(
-      success: (BaseEntity<PaginationEntity<PaginatedFilesSystem>> model) {
-        lastPage = model.data.lastPage;
-        _addIncomingDataToClassMemberDataFilesSystem(loadMore, model);
-        emit(FileState.success(_files, currentPage));
+      success: (data) {
+        canLoadMoreData = data.data.lastPage != null &&
+            data.data.currentPage! < data.data.lastPage!;
+
+        currentPage++;
+        emit(
+          FileState.success(
+            canLoadMore: canLoadMoreData,
+            data: state.maybeWhen(
+              orElse: () => [...data.data.data],
+              success: (sys, canLoadMore) => [...sys, ...data.data.data],
+            ),
+          ),
+        );
       },
       error: (NetworkExceptions exception) {
         if (kDebugMode) {
           print(exception);
         }
+        print('bbqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq');
+
         emit(FileState.error(exception));
       },
     );
@@ -63,21 +71,28 @@ class GetAllFilesSystemCubit extends Cubit<FileState> {
     bool loadMore = false,
     required int groupId,
   }) async {
-    if (loadMore) {
-      if (lastPage != null && currentPage > lastPage!) return;
-      currentPage++;
-    } else {
-      currentPage = 1;
-      emit(const FileState.loading());
+    if (!canLoadMoreData) {
+      return;
     }
 
-    var response = await _getFilesGroupUseCase(
-        FilesGroupParams(page: currentPage, groupId: groupId));
+    FilesGroupParams filesGroupParams =
+        FilesGroupParams(page: currentPage, groupId: groupId);
+    var response = await _getFilesGroupUseCase(filesGroupParams);
     response.when(
-      success: (BaseEntity<PaginationEntity<PaginatedFilesGroup>> model) {
-        lastPage = model.data.lastPage;
-        _addIncomingDataToClassMemberDataFilesGroup(loadMore, model);
-        emit(FileState.success(_filesGroup, currentPage));
+      success: (data) {
+        canLoadMoreData = data.data.lastPage != null &&
+            data.data.currentPage! < data.data.lastPage!;
+
+        currentPage++;
+        emit(
+          FileState.success(
+            canLoadMore: canLoadMoreData,
+            data: state.maybeWhen(
+              orElse: () => [...data.data.data],
+              success: (sys, canLoadMore) => [...sys, ...data.data.data],
+            ),
+          ),
+        );
       },
       error: (NetworkExceptions exception) {
         if (kDebugMode) {
@@ -88,21 +103,65 @@ class GetAllFilesSystemCubit extends Cubit<FileState> {
     );
   }
 
-  void _addIncomingDataToClassMemberDataFilesSystem(bool loadMore,
-      BaseEntity<PaginationEntity<PaginatedFilesSystem?>> model) {
-    if (loadMore) {
-      _files.addAll(model.data.data);
-    } else {
-      _files = model.data.data;
-    }
+  final RefreshController refreshController = RefreshController();
+
+  @override
+  Future<void> close() {
+    refreshController.dispose();
+    return super.close();
   }
 
-  void _addIncomingDataToClassMemberDataFilesGroup(
-      bool loadMore, BaseEntity<PaginationEntity<PaginatedFilesGroup?>> model) {
-    if (loadMore) {
-      _filesGroup.addAll(model.data.data);
-    } else {
-      _filesGroup = model.data.data;
-    }
-  }
+  ///todo:test
+// const initialPage = 1;
+// const limit = 30;
+
+// @injectable
+// class SystemGroupsCubit
+//     extends Cubit<SystemGroupsState<PaginatedSystemGroup?>> {
+//   final GetSystemGroupsUseCase _getSystemGroupsUseCase;
+//   SystemGroupsCubit(
+//     this._getSystemGroupsUseCase,
+//   ) : super(const SystemGroupsState.loading());
+//   int currentPage = initialPage;
+//   bool canLoadMoreData = true;
+
+//   Future<void> emitGetSystemGroups({
+//     bool loadMore = false,
+//   }) async {
+  // if (!canLoadMoreData) {
+  //   return;
+  // }
+//     SystemGroupsParams params = SystemGroupsParams(page: currentPage);
+//     var response = await _getSystemGroupsUseCase.call(params);
+//     response.when(
+//       success: (data) {
+//         canLoadMoreData = data.data.lastPage != null &&
+//             data.data.currentPage! < data.data.lastPage!;
+//         currentPage++;
+//         emit(SystemGroupsState.success(
+//             data: state.maybeWhen(
+//                 orElse: () {
+//                   print("Using orElse");
+//                   return [...data.data.data];
+//                 },
+//                 success: (sys, canLoadMore) => [...sys, ...data.data.data]),
+//             canLoadMore: canLoadMoreData));
+//       },
+//       error: (NetworkExceptions exception) {
+//         if (kDebugMode) {
+//           print(exception);
+//         }
+//         emit(SystemGroupsState.error(exception));
+//       },
+//     );
+//   }
+
+//   final RefreshController refreshController = RefreshController();
+
+//   @override
+//   Future<void> close() {
+//     refreshController.dispose();
+//     return super.close();
+//   }
+// }
 }

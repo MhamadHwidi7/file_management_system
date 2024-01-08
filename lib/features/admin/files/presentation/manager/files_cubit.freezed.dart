@@ -19,21 +19,21 @@ mixin _$FileState<T> {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(List<T> data, int currentPage) success,
+    required TResult Function(List<T> data, bool canLoadMore) success,
     required TResult Function(NetworkExceptions networkExceptions) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(List<T> data, int currentPage)? success,
+    TResult? Function(List<T> data, bool canLoadMore)? success,
     TResult? Function(NetworkExceptions networkExceptions)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<T> data, int currentPage)? success,
+    TResult Function(List<T> data, bool canLoadMore)? success,
     TResult Function(NetworkExceptions networkExceptions)? error,
     required TResult orElse(),
   }) =>
@@ -125,7 +125,7 @@ class _$LoadingImpl<T> with DiagnosticableTreeMixin implements _Loading<T> {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(List<T> data, int currentPage) success,
+    required TResult Function(List<T> data, bool canLoadMore) success,
     required TResult Function(NetworkExceptions networkExceptions) error,
   }) {
     return loading();
@@ -135,7 +135,7 @@ class _$LoadingImpl<T> with DiagnosticableTreeMixin implements _Loading<T> {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(List<T> data, int currentPage)? success,
+    TResult? Function(List<T> data, bool canLoadMore)? success,
     TResult? Function(NetworkExceptions networkExceptions)? error,
   }) {
     return loading?.call();
@@ -145,7 +145,7 @@ class _$LoadingImpl<T> with DiagnosticableTreeMixin implements _Loading<T> {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<T> data, int currentPage)? success,
+    TResult Function(List<T> data, bool canLoadMore)? success,
     TResult Function(NetworkExceptions networkExceptions)? error,
     required TResult orElse(),
   }) {
@@ -200,7 +200,7 @@ abstract class _$$SuccessImplCopyWith<T, $Res> {
           _$SuccessImpl<T> value, $Res Function(_$SuccessImpl<T>) then) =
       __$$SuccessImplCopyWithImpl<T, $Res>;
   @useResult
-  $Res call({List<T> data, int currentPage});
+  $Res call({List<T> data, bool canLoadMore});
 }
 
 /// @nodoc
@@ -215,17 +215,17 @@ class __$$SuccessImplCopyWithImpl<T, $Res>
   @override
   $Res call({
     Object? data = null,
-    Object? currentPage = null,
+    Object? canLoadMore = null,
   }) {
     return _then(_$SuccessImpl<T>(
-      null == data
+      data: null == data
           ? _value._data
           : data // ignore: cast_nullable_to_non_nullable
               as List<T>,
-      null == currentPage
-          ? _value.currentPage
-          : currentPage // ignore: cast_nullable_to_non_nullable
-              as int,
+      canLoadMore: null == canLoadMore
+          ? _value.canLoadMore
+          : canLoadMore // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -233,7 +233,8 @@ class __$$SuccessImplCopyWithImpl<T, $Res>
 /// @nodoc
 
 class _$SuccessImpl<T> with DiagnosticableTreeMixin implements _Success<T> {
-  const _$SuccessImpl(final List<T> data, this.currentPage) : _data = data;
+  const _$SuccessImpl({required final List<T> data, required this.canLoadMore})
+      : _data = data;
 
   final List<T> _data;
   @override
@@ -244,11 +245,11 @@ class _$SuccessImpl<T> with DiagnosticableTreeMixin implements _Success<T> {
   }
 
   @override
-  final int currentPage;
+  final bool canLoadMore;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'FileState<$T>.success(data: $data, currentPage: $currentPage)';
+    return 'FileState<$T>.success(data: $data, canLoadMore: $canLoadMore)';
   }
 
   @override
@@ -257,7 +258,7 @@ class _$SuccessImpl<T> with DiagnosticableTreeMixin implements _Success<T> {
     properties
       ..add(DiagnosticsProperty('type', 'FileState<$T>.success'))
       ..add(DiagnosticsProperty('data', data))
-      ..add(DiagnosticsProperty('currentPage', currentPage));
+      ..add(DiagnosticsProperty('canLoadMore', canLoadMore));
   }
 
   @override
@@ -266,13 +267,13 @@ class _$SuccessImpl<T> with DiagnosticableTreeMixin implements _Success<T> {
         (other.runtimeType == runtimeType &&
             other is _$SuccessImpl<T> &&
             const DeepCollectionEquality().equals(other._data, _data) &&
-            (identical(other.currentPage, currentPage) ||
-                other.currentPage == currentPage));
+            (identical(other.canLoadMore, canLoadMore) ||
+                other.canLoadMore == canLoadMore));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_data), currentPage);
+      runtimeType, const DeepCollectionEquality().hash(_data), canLoadMore);
 
   @JsonKey(ignore: true)
   @override
@@ -284,32 +285,32 @@ class _$SuccessImpl<T> with DiagnosticableTreeMixin implements _Success<T> {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(List<T> data, int currentPage) success,
+    required TResult Function(List<T> data, bool canLoadMore) success,
     required TResult Function(NetworkExceptions networkExceptions) error,
   }) {
-    return success(data, currentPage);
+    return success(data, canLoadMore);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(List<T> data, int currentPage)? success,
+    TResult? Function(List<T> data, bool canLoadMore)? success,
     TResult? Function(NetworkExceptions networkExceptions)? error,
   }) {
-    return success?.call(data, currentPage);
+    return success?.call(data, canLoadMore);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<T> data, int currentPage)? success,
+    TResult Function(List<T> data, bool canLoadMore)? success,
     TResult Function(NetworkExceptions networkExceptions)? error,
     required TResult orElse(),
   }) {
     if (success != null) {
-      return success(data, currentPage);
+      return success(data, canLoadMore);
     }
     return orElse();
   }
@@ -350,11 +351,12 @@ class _$SuccessImpl<T> with DiagnosticableTreeMixin implements _Success<T> {
 }
 
 abstract class _Success<T> implements FileState<T> {
-  const factory _Success(final List<T> data, final int currentPage) =
-      _$SuccessImpl<T>;
+  const factory _Success(
+      {required final List<T> data,
+      required final bool canLoadMore}) = _$SuccessImpl<T>;
 
   List<T> get data;
-  int get currentPage;
+  bool get canLoadMore;
   @JsonKey(ignore: true)
   _$$SuccessImplCopyWith<T, _$SuccessImpl<T>> get copyWith =>
       throw _privateConstructorUsedError;
@@ -444,7 +446,7 @@ class _$ErrorImpl<T> with DiagnosticableTreeMixin implements _Error<T> {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(List<T> data, int currentPage) success,
+    required TResult Function(List<T> data, bool canLoadMore) success,
     required TResult Function(NetworkExceptions networkExceptions) error,
   }) {
     return error(networkExceptions);
@@ -454,7 +456,7 @@ class _$ErrorImpl<T> with DiagnosticableTreeMixin implements _Error<T> {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(List<T> data, int currentPage)? success,
+    TResult? Function(List<T> data, bool canLoadMore)? success,
     TResult? Function(NetworkExceptions networkExceptions)? error,
   }) {
     return error?.call(networkExceptions);
@@ -464,7 +466,7 @@ class _$ErrorImpl<T> with DiagnosticableTreeMixin implements _Error<T> {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<T> data, int currentPage)? success,
+    TResult Function(List<T> data, bool canLoadMore)? success,
     TResult Function(NetworkExceptions networkExceptions)? error,
     required TResult orElse(),
   }) {
