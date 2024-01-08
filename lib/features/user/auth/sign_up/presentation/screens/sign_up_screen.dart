@@ -1,7 +1,10 @@
 import 'package:file_management_project/core/constants/color_pallete.dart';
 import 'package:file_management_project/features/admin/auth/domain/params/sign_up_params.dart';
+import 'package:file_management_project/features/admin/auth/presentation/manager/log_in_cubit.dart';
 import 'package:file_management_project/features/admin/auth/presentation/manager/sign_up_cubit.dart';
+import 'package:file_management_project/features/admin/auth/presentation/pages/log_in_admin_screen.dart';
 import 'package:file_management_project/features/admin/auth/presentation/pages/sign_up_admin_screen.dart';
+import 'package:file_management_project/features/user/auth/log_in/presentation/manager/log_in_cubit.dart';
 import 'package:file_management_project/features/user/auth/sign_up/domain/params/sign_up_params.dart';
 import 'package:file_management_project/features/user/auth/sign_up/presentation/manager/sign_up_cubit.dart';
 import 'package:file_management_project/features/user/auth/sign_up/presentation/screens/log_in_screen.dart';
@@ -132,8 +135,9 @@ class SignUpScreen extends StatelessWidget {
                       fontSize: 20,
                     ),
                   ),
-                  TextButton(
-                      onPressed: () {
+                  const SizedBox(height: 10),
+                  AuthButton(
+                      onpressed: () {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -143,7 +147,51 @@ class SignUpScreen extends StatelessWidget {
                                       child: const SignUpAdminScreen(),
                                     )));
                       },
-                      child: Text("Sign Up As Admin"))
+                      text: "Sign Up As Admin"),
+                  const SizedBox(height: 20),
+                  const Text(
+                    'or u have admin account',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  CupertinoButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (_) => BlocProvider(
+                                    create: (context) =>
+                                        getIt<LogInAdminCubit>(),
+                                    child: const LoginAdminScreen(),
+                                  )));
+                    },
+                    child: Text("Sign in As Admin"),
+                    color: Colors.amberAccent,
+                  ),
+                  const SizedBox(height: 20),
+                  const Text(
+                    'or u have user account',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  CupertinoButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => BlocProvider(
+                                      create: (context) => getIt<LogInCubit>(),
+                                      child: const LoginScreen(),
+                                    )));
+                      },
+                      child: Text("Sign in As User"),
+                      color: Colors.lightGreen),
                 ],
               ),
             ),
