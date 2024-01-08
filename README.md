@@ -17,7 +17,7 @@ The project leverages ORM to facilitate seamless interaction between the applica
 Following a robust three-tier architecture:
 
 - **Front-end**: Developed using Flutter to provide a responsive cross-platform user interface.
-- **Back-end**: Implements Clean Architecture principles for a modular and testable design, with BLoC as the state management solution. [Link to Backend Repository](https://github.com/yumnaqass/file-management-backend)
+- **Back-end**: Implements Clean Architecture principles for a modular and testable design, with BLoC as the state management solution. [Link to Backend Repository](https://github.com/yumnaqass/file-management-)
 
 - **Database**: Stores information about files, users, groups, and transactions.
 
