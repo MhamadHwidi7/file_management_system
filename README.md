@@ -1,35 +1,78 @@
-# File Management Project
+# File Management System
 
-![Project Status](https://img.shields.io/badge/Status-In%20Progress-yellow)
+![Project Status](https://img.shields.io/badge/Status-Completed-brightgreen)
 
 ## Introduction
 
-This Flutter project aims to create a file management system that facilitates collaboration among a group of users. The primary goal is to ensure that two users cannot write concurrently to the same file. The project is currently in progress, and active development is ongoing.
+This Flutter project has successfully implemented a comprehensive file management system, utilizing Flutter Clean Architecture with BLoC state management. The project addresses key aspects such as ORM, 3-tier architecture, file management, user and group management, reporting, check-in/check-out, bulk check-in, transactions, authentication, authorization, and a responsive front-end with pagination, configuration, and enhanced security measures.
 
-## Project Overview
+## Key Features
 
-The system allows users to:
+### 1. ORM (Object-Relational Mapping)
 
-1. **Web-Based System**: Users can add their files to the system and categorize them as either free or in use by a specific user.
+The project leverages ORM to facilitate seamless interaction between the application and the database, ensuring efficient data management.
 
-2. **File Organization**: Files are organized into groups, restricting user access to only those files belonging to specified groups.
+### 2. 3-Tier Architecture
 
-3. **Check-in and Check-out**: The fundamental use cases involve check-in and check-out operations. Check-in allows a user to reserve a free file, download it, make modifications, and then upload the modified file. Check-out enables a user to revert the modified file, replacing the old version and returning it to a free state.
+Following a robust three-tier architecture:
 
-4. **Batch Check-in**: Users can select multiple files and perform a check-in operation. The system ensures that all selected files are free before reserving them.
+- **Front-end**: Developed using Flutter to provide a responsive cross-platform user interface.
+- **Back-end**: Implements Clean Architecture principles for a modular and testable design, with BLoC as the state management solution. [Link to Backend Repository](https://github.com/yumnaqass/file-management-backend)
 
-5. **Concurrency Control**: The system guarantees that two users cannot reserve the same file simultaneously.
+- **Database**: Stores information about files, users, groups, and transactions.
 
-## Features in Progress
+### 3. File Management
 
-- **Check-in/Check-out Enhancements**: Ongoing work to refine the check-in and check-out functionalities for improved user experience.
+Users can add, categorize, and manage files within the system. Files are organized into groups, and access is controlled based on user roles.
 
-- **Reporting Module**: Development of a reporting module to generate reports on reservation and editing activities, categorized by file or user.
+### 4. User and Group Management
+
+The system includes user and group management functionalities to regulate access and collaboration.
+
+### 5. Reports
+
+A reporting module has been implemented to generate insightful reports on reservation and editing activities, categorized by file or user.
+
+### 6. Check-in and Check-out
+
+The fundamental operations of check-in and check-out are seamlessly integrated, allowing users to reserve, modify, and revert files.
+
+### 7. Bulk Check-in
+
+Users have the capability to select multiple files and perform a bulk check-in operation, streamlining the process.
+
+### 8. Transaction Management
+
+The system ensures secure handling of transactions to prevent data corruption or loss.
+
+### 9. Authentication
+
+A robust authentication system is in place, requiring users to authenticate before accessing the system.
+
+### 10. Authorization
+
+Different user roles have distinct permissions, ensuring proper access control and data security.
+
+### 11. Front-end (Flutter)
+
+The project's front-end is developed using Flutter Clean Architecture, incorporating BLoC for efficient state management.
+
+### 12. Pagination
+
+Pagination is implemented for efficient data handling, especially when dealing with a large number of files.
+
+### 13. Configuration
+
+The system allows for easy configuration to adapt to various deployment environments.
+
+### 14. Enhanced Security
+
+Security measures have been implemented across the system, emphasizing the protection of user data and preventing unauthorized access.
 
 ## Getting Started
 
-To get started with this Flutter project, follow these steps:
+To explore the completed project, follow these steps:
 
 1. Clone the repository.
    ```bash
-   git clone https://github.com/your-username/file_management_project.git
+   git clone https://github.com/your-username/file_management_system.git
